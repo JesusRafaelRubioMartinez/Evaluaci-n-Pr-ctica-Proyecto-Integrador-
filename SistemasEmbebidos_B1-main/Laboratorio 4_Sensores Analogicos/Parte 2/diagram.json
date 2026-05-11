@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "author": "Anonymous maker",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-breadboard", "id": "bb1", "top": -99, "left": -102.8, "attrs": {} },
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": 144.6, "left": -29.4, "attrs": {} },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr1",
+      "top": -134.7,
+      "left": 23.3,
+      "rotate": 90,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -34.45,
+      "left": 0,
+      "attrs": { "value": "10000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 32.75,
+      "left": 9.6,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": -45.6,
+      "left": 136.2,
+      "attrs": { "volume": "0.1" }
+    },
+    { "type": "wokwi-led", "id": "led1", "top": -3.6, "left": -15.4, "attrs": { "color": "red" } }
+  ],
+  "connections": [
+    [ "uno:GND.1", "bb1:bn.12", "black", [ "v-38.4", "h-18.9" ] ],
+    [ "uno:5V", "bb1:bp.18", "red", [ "v-163.3", "h23", "v-28.8", "h-28.8" ] ],
+    [ "r2:2", "uno:9", "green", [ "v19.2", "h37.2", "v76.8", "h28.8" ] ],
+    [ "led1:A", "bb1:10b.h", "", [ "$bb" ] ],
+    [ "led1:C", "bb1:9b.h", "", [ "$bb" ] ],
+    [ "led1:C", "bb1:bn.11", "green", [ "v0" ] ],
+    [ "ldr1:VCC", "bb1:bp.19", "red", [ "v96", "h19.2" ] ],
+    [ "ldr1:VCC", "bb1:22t.d", "", [ "$bb" ] ],
+    [ "ldr1:GND", "bb1:21t.d", "", [ "$bb" ] ],
+    [ "ldr1:DO", "bb1:20t.d", "", [ "$bb" ] ],
+    [ "ldr1:AO", "bb1:19t.d", "", [ "$bb" ] ],
+    [ "uno:A1", "ldr1:AO", "green", [ "v-220.9", "h-92.1" ] ],
+    [ "bb1:bn.13", "ldr1:GND", "green", [ "v-30.1", "h37.6" ] ],
+    [ "r2:1", "bb1:10b.h", "", [ "$bb" ] ],
+    [ "r2:2", "bb1:16b.h", "", [ "$bb" ] ],
+    [ "r1:1", "bb1:9t.c", "", [ "$bb" ] ],
+    [ "r1:2", "bb1:15t.c", "", [ "$bb" ] ],
+    [ "r1:2", "ldr1:AO", "green", [ "v0" ] ],
+    [ "r1:1", "bb1:bn.14", "green", [ "v28.8", "h-19.2", "v124.8", "h105.6" ] ],
+    [ "bz1:1", "bb1:26b.h", "", [ "$bb" ] ],
+    [ "bz1:2", "bb1:27b.h", "", [ "$bb" ] ],
+    [ "bz1:2", "uno:6", "green", [ "v0" ] ],
+    [ "bz1:1", "bb1:bn.15", "green", [ "v38.4", "h-48" ] ]
+  ],
+  "dependencies": {}
+}

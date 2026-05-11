@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "author": "Anonymous maker",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-breadboard", "id": "bb1", "top": -233.4, "left": -141.2, "attrs": {} },
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": -9, "left": -77.4, "attrs": {} },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": -170.4,
+      "left": 11.4,
+      "attrs": { "volume": "0.1" }
+    }
+  ],
+  "connections": [
+    [ "bz1:1", "bb1:17b.i", "", [ "$bb" ] ],
+    [ "bz1:2", "bb1:18b.i", "", [ "$bb" ] ],
+    [ "bb1:18b.j", "uno:6", "green", [ "v57.6", "h76.8", "v9.6" ] ],
+    [ "bb1:17b.j", "uno:GND.1", "green", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}
