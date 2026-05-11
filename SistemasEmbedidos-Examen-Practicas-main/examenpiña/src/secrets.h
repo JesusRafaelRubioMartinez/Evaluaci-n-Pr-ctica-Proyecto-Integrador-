@@ -1,0 +1,5 @@
+#define SECRET_SSID "Redmi Note 11"
+#define SECRET_PASS "angelrios10"
+
+#define SECRET_CH_ID  3284950
+#define SECRET_WRITE_APIKEY "6NKGPI6125CHCXCP"

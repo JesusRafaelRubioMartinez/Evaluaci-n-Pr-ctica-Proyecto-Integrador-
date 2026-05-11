@@ -1,0 +1,58 @@
+#include <Arduino.h> #include <DHT.h> #include <ESP32Servo.h>
+
+// ─── Pines ──────────────────────────────────────────────── #define DHT_PIN 2 // GPIO donde está conectado el DATA del DHT22 #define SERVO_PIN 5 // GPIO donde está conectado el señal del servo
+
+// ─── Configuración DHT ──────────────────────────────────── #define DHT_TYPE DHT22 DHT dht(DHT_PIN, DHT_TYPE);
+
+// ─── Configuración Servo ────────────────────────────────── Servo servo; int servoAngle = 0; // Ángulo actual del servo (0–180)
+
+// ─── Tiempos ─────────────────────────────────────────────── unsigned long lastDHT = 0; unsigned long lastServo = 0;
+
+const unsigned long INTERVALO_DHT = 2000; // ms entre lecturas del DHT22 const unsigned long INTERVALO_SERVO = 15; // ms entre cada paso del servo (velocidad)
+
+// ─── Estado del barrido ──────────────────────────────────── int servoPos = 0; int servoDir = 1; // 1 = subiendo, -1 = bajando
+
+void setup() { Serial.begin(115200); Serial.println("=== ESP32 | DHT22 + Servo SG90 ===");
+
+dht.begin();
+
+servo.attach(SERVO_PIN, 500, 2400);
+servo.write(0);
+Serial.println("Servo en posición 0° — iniciando barrido automático");
+}
+
+void loop() { unsigned long ahora = millis();
+
+// ── Leer DHT22 cada 2 segundos ──────────────────────────
+if (ahora - lastDHT >= INTERVALO_DHT) {
+    lastDHT = ahora;
+
+    float humedad     = dht.readHumidity();
+    float temperatura = dht.readTemperature();
+
+    if (isnan(humedad) || isnan(temperatura)) {
+        Serial.println("[ERROR] No se pudo leer el DHT22. Revisa el cableado.");
+    } else {
+        Serial.printf("[DHT22] Temp: %.1f °C  |  Humedad: %.1f %%\n",
+                      temperatura, humedad);
+    }
+}
+
+// ── Barrido automático del servo ─────────────────────────
+if (ahora - lastServo >= INTERVALO_SERVO) {
+    lastServo = ahora;
+
+    servo.write(servoPos);
+    Serial.printf("[SERVO] %d°\n", servoPos);
+
+    servoPos += servoDir;
+
+    if (servoPos >= 180) {
+        servoPos = 180;
+        servoDir = -1;  // cambiar dirección: bajar
+    } else if (servoPos <= 0) {
+        servoPos = 0;
+        servoDir = 1;   // cambiar dirección: subir
+    }
+}
+}
